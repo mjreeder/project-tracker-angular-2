@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['student.component.scss']
 })
 
-export class StudentsComponent {
+export class StudentComponent {
 
   constructor(
     private router: Router,
