@@ -1,0 +1,16 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'student',
+  templateUrl: 'student.component.html',
+  styleUrls: ['student.component.scss']
+})
+
+export class StudentsComponent {
+
+  constructor(
+    private router: Router,
+  ) { }
+
+}
