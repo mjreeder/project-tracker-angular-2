@@ -13,4 +13,9 @@ export class LoginComponent {
     private router: Router,
   ) { }
 
+  loginUser(): void {
+    this.router.navigate(['/projects']);
+  }
+
+
 }

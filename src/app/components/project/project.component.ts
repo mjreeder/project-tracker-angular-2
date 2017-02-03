@@ -13,4 +13,13 @@ export class ProjectComponent {
     private router: Router,
   ) { }
 
+  goToDetails(): void {
+    this.router.navigate(['/project-detail']);
+  }
+
+  goToStudents(): void {
+    this.router.navigate(['/students']);
+  }
+
+
 }
