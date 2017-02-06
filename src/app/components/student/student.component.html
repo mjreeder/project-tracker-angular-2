@@ -1,2 +1,13 @@
 <h2>Students</h2>
 <button type="button" (click)="goToProjects()">Projects</button>
+
+<div *ngFor="let student of students">
+	<b>{{student.name}}</b>
+	<br>
+	<img src="{{student.thumbnail}}" alt="" style="height: 100px; width: 100px">
+	<ul>
+		<li *ngFor="let assign of student.assignments">
+			{{assign.project_name}}
+		</li>
+	</ul>
+</div>

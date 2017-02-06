@@ -9,7 +9,11 @@ import { StudentComponent } from './components/student/student.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
 
+import { API } from './services/api/api.service';
+
 import { AppRoutingModule } from './app-routing.module';
+
+import '../rxjs-extensions';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [API],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
