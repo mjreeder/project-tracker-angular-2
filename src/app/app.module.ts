@@ -13,6 +13,8 @@ import { API } from './services/api/api.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import {TeamFilter} from './filters/team-filter';
+
 import '../rxjs-extensions';
 
 @NgModule({
@@ -21,7 +23,8 @@ import '../rxjs-extensions';
     LoginComponent,
     StudentComponent,
     ProjectComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    TeamFilter
   ],
   imports: [
     BrowserModule,

@@ -10,8 +10,9 @@ import { API } from '../../services/api/api.service';
 })
 
 export class StudentComponent implements OnInit {
-   private students: any[];
-   private assignments: any[];
+   private students: any[] = [];
+   private assignments: any[] = [];
+   private team: string = '';
 
   constructor(
     private router: Router,

@@ -1,7 +1,13 @@
 <h2>Students</h2>
+<input type="radio" [(ngModel)]="team"  name="team" value="">All
+<input type="radio" [(ngModel)]="team"  name="team" value="Communication">Communication
+<input type="radio" [(ngModel)]="team"  name="team" value="Design">Design
+<input type="radio" [(ngModel)]="team"  name="team" value="Development">Development
+<input type="radio" [(ngModel)]="team"  name="team" value="UX">UX
+<br>
 <button type="button" (click)="goToProjects()">Projects</button>
 
-<div *ngFor="let student of students">
+<div *ngFor="let student of students | teamFilter:team">
 	<b>{{student.name}}</b>
 	<br>
 	<img src="{{student.thumbnail}}" alt="" style="height: 100px; width: 100px">
