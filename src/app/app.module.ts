@@ -15,6 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import {TeamFilter} from './filters/team-filter';
 
+import {LoginGuard} from './guards/login.guard';
+
 import '../rxjs-extensions';
 
 @NgModule({
@@ -32,7 +34,7 @@ import '../rxjs-extensions';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [API],
+  providers: [API, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

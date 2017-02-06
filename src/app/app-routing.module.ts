@@ -6,12 +6,14 @@ import {StudentComponent} from './components/student/student.component';
 import {ProjectComponent} from './components/project/project.component';
 import {ProjectDetailComponent} from './components/project-detail/project-detail.component';
 
+import {LoginGuard} from './guards/login.guard';
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent },
-  {path: 'students', component: StudentComponent},
-  {path: 'projects', component: ProjectComponent},
-  {path: 'project-details/:id', component: ProjectDetailComponent},
+  {path: 'students', component: StudentComponent, canActivate: [LoginGuard]},
+  {path: 'projects', component: ProjectComponent, canActivate: [LoginGuard]},
+  {path: 'project-details/:id', component: ProjectDetailComponent, canActivate: [LoginGuard]},
 ];
 
 @NgModule({
