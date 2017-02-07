@@ -10,9 +10,9 @@ import { API } from '../../services/api/api.service';
 })
 
 export class StudentComponent implements OnInit {
-   private students: any[] = [];
-   private assignments: any[] = [];
-   private team: string = '';
+  private students: any[] = [];
+  private assignments: any[] = [];
+  private team: string = '';
 
   constructor(
     private router: Router,
@@ -20,20 +20,28 @@ export class StudentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getAllStudents();
+    this.getData();
+  }
+
+  getData() {
+    var promise = new Promise((resolve, reject) => {
+      this.getAllStudents();
+      this.getAllAssignments();
+    });
+    promise.then(response => {
+      this.mapAssignmentsToStudents();
+    });
   }
 
   getAllStudents() {
-    this.API.getAllStudents().then((result)=>{
+    this.API.getAllStudents().then((result) => {
       this.students = result;
-      this.getAllAssignments()
     });
   }
 
   getAllAssignments() {
-    this.API.getAllAssignments().then((result)=>{
+    this.API.getAllAssignments().then((result) => {
       this.assignments = result;
-      this.mapAssignmentsToStudents();
     });
   }
 
@@ -52,9 +60,9 @@ export class StudentComponent implements OnInit {
 
   findIdMatch(id): any {
     for (let x = 0; x < this.assignments.length; x++) {
-        if (id == this.assignments[x].ultimate_id) {
-          return x;
-        }
+      if (id == this.assignments[x].ultimate_id) {
+        return x;
+      }
     }
     return null;
   }
