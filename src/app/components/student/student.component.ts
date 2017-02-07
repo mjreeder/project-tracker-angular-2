@@ -23,25 +23,14 @@ export class StudentComponent implements OnInit {
     this.getData();
   }
 
+  // TODO: error handling on pPromises
   getData() {
-    var promise = new Promise((resolve, reject) => {
-      this.getAllStudents();
-      this.getAllAssignments();
-    });
-    promise.then(response => {
+    var studentPromise = this.API.getAllStudents();
+    var assignmentPromise = this.API.getAllAssignments();
+    Promise.all([studentPromise, assignmentPromise]).then((result) => {
+      this.students = result[0];
+      this.assignments = result[1];
       this.mapAssignmentsToStudents();
-    });
-  }
-
-  getAllStudents() {
-    this.API.getAllStudents().then((result) => {
-      this.students = result;
-    });
-  }
-
-  getAllAssignments() {
-    this.API.getAllAssignments().then((result) => {
-      this.assignments = result;
     });
   }
 
