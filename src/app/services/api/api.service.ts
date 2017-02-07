@@ -23,6 +23,14 @@ export class API {
     return this.getRequest(url);
   }
 
+  login(userID, password) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/users/initialize';
+    let data = new URLSearchParams();
+    data.append('user_id', userID);
+    data.append('password', password);
+    return this.postRequest(url, data);
+  }
+
   getRequest(url: string) {
     return this.http
       .get(url)
@@ -30,18 +38,12 @@ export class API {
       .toPromise();
   }
 
-  login(userID, password) {
-    var url = 'https://apso.bsu.edu/tools/projects/api/users/initialize';
-    let data = new URLSearchParams();
-    data.append('user_id', userID);
-    data.append('password', password);
-
+  postRequest(url: string, data: Object) {
     return this.http
       .post(url, data)
       .map(response => response.json())
       .toPromise()
       .catch(this.handleError);
-
   }
 
   private handleError(error: any): Promise<any> {
