@@ -71,4 +71,9 @@ export class StudentComponent implements OnInit {
     this.router.navigate(['/projects']);
   }
 
+  logoutUser(): void {
+    localStorage.removeItem('jwtTokenString');
+    this.router.navigate(['/login']);
+  }
+
 }
