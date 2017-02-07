@@ -1,2 +1,6 @@
 <h2>Login Page!</h2>
+<div *ngFor="let user of users">
+  <input type="radio" [(ngModel)]="userID"  name="user" value="{{user.id}}">{{user.name}}
+</div>
+Password: <input type="text" [(ngModel)]="password" name="password"><br>
 <button type="button" (click)="loginUser()">LOGIN</button>
