@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { API } from '../../services/api/api.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'student',
@@ -37,23 +37,15 @@ export class StudentComponent implements OnInit {
   mapAssignmentsToStudents() {
     var assignIndex;
     for (let i = 0; i < this.students.length; i++) {
-      assignIndex = this.findIdMatch(this.students[i].id);
-      if (assignIndex) {
-        this.students[i].assignments = this.assignments[assignIndex].assignments;
-        this.assignments.splice(assignIndex, 1);
-      } else {
+      var id = this.students[i].id;
+      var studentAssignments = _.filter(this.assignments, function(o) { return o.ultimate_id == id; });
+      if(studentAssignments.length > 0){
+        this.students[i].assignments = studentAssignments[0].assignments;
+      }
+      else{
         this.students[i].assignments = [];
       }
     }
-  }
-
-  findIdMatch(id): any {
-    for (let x = 0; x < this.assignments.length; x++) {
-      if (id == this.assignments[x].ultimate_id) {
-        return x;
-      }
-    }
-    return null;
   }
 
   goToProjects(): void {
