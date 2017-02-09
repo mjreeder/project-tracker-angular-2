@@ -17,9 +17,4 @@ export class ProjectComponent {
     this.router.navigate(['/project-details', id]);
   }
 
-  goToStudents(): void {
-    this.router.navigate(['/students']);
-  }
-
-
 }

@@ -48,13 +48,4 @@ export class StudentComponent implements OnInit {
     }
   }
 
-  goToProjects(): void {
-    this.router.navigate(['/projects']);
-  }
-
-  logoutUser(): void {
-    localStorage.removeItem('jwtTokenString');
-    this.router.navigate(['/login']);
-  }
-
 }

@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { StudentComponent } from './components/student/student.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
+import { ProjectStudentFooterComponent } from './components/project-student-footer/project-student-footer.component';
 
 import { API } from './services/api/api.service';
 
@@ -26,6 +27,7 @@ import '../rxjs-extensions';
     StudentComponent,
     ProjectComponent,
     ProjectDetailComponent,
+    ProjectStudentFooterComponent,
     TeamFilter
   ],
   imports: [

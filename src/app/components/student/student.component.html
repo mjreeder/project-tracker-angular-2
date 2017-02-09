@@ -5,7 +5,6 @@
 <input type="radio" [(ngModel)]="team"  name="team" value="Development">Development
 <input type="radio" [(ngModel)]="team"  name="team" value="UX">UX
 <br>
-<button type="button" (click)="goToProjects()">Projects</button>
 
 <div *ngFor="let student of students | teamFilter:team">
 	<b>{{student.name}}</b>
@@ -18,4 +17,4 @@
 	</ul>
 </div>
 
-<button type="button" (click)="logoutUser()">LOGOUT</button>
+<project-student-footer [activePage]="'students'"></project-student-footer>
