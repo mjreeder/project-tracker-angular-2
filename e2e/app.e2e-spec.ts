@@ -1,10 +1,10 @@
-import { ProjectTrackerAngular2Page } from './app.po';
+import { ProjectTrackerAngularTwoPage } from './app.po';
 
-describe('project-tracker-angular-2 App', function() {
-  let page: ProjectTrackerAngular2Page;
+describe('project-tracker-angular-two App', function() {
+  let page: ProjectTrackerAngularTwoPage;
 
   beforeEach(() => {
-    page = new ProjectTrackerAngular2Page();
+    page = new ProjectTrackerAngularTwoPage();
   });
 
   it('should display message saying app works', () => {

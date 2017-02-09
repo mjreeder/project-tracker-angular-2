@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class ProjectTrackerAngular2Page {
+export class ProjectTrackerAngularTwoPage {
   navigateTo() {
     return browser.get('/');
   }
