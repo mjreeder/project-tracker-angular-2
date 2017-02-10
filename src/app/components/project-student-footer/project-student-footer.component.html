@@ -1,4 +1,4 @@
 <button type="button" (click)="goToProjects()" [disabled]="activePage == 'projects'">Projects</button>
 <button type="button" (click)="goToStudents()" [disabled]="activePage == 'students'">Students</button>
-<button type="button" [hidden]="activePage == 'students'">+</button>
+<button type="button" (click)="addProject()" [hidden]="activePage == 'students'">+</button>
 <button type="button" (click)="logoutUser()">LOGOUT</button>
