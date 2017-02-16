@@ -23,6 +23,11 @@ export class API {
     return this.getRequest(url);
   }
 
+  getAllStaff() {
+    var url = 'https://apso.bsu.edu/ultimate/wp-json/ultimate/v1/staff';
+    return this.getRequest(url);
+  }
+
   login(userID, password) {
     var url = 'https://apso.bsu.edu/tools/projects/api/users/initialize';
     let data = new URLSearchParams();
