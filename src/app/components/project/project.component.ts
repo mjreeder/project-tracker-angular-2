@@ -17,4 +17,8 @@ export class ProjectComponent {
     this.router.navigate(['/project-details', id]);
   }
 
+  addNewProject(event){
+    console.log(event);
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,10 +11,16 @@ export class ProjectStudentFooterComponent implements OnInit {
 
   @Input() activePage: string;
 
+  @Output()
+  addProjectEvent: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private router: Router
   ) { }
 
+  addProject(){
+    this.addProjectEvent.emit('');
+  }
   ngOnInit() {
   }
 
