@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 
 export class LoginComponent implements OnInit {
   private users: any[] = [];
-  private students: any[] = [];
+  private jpms: any[] = [];
   private staff: any[] = [];
 
   private token:any;
@@ -30,33 +30,35 @@ export class LoginComponent implements OnInit {
   }
 
   getData() {
-    var studentPromise = this.API.getAllStudents();
+    var jpmPromise = this.API.getAllJPMS();
     var usersPromise = this.API.getAllUsers();
     var staffPromise = this.API.getAllStaff();
-    Promise.all([studentPromise, usersPromise, staffPromise]).then((result) => {
-      this.students = result[0];
+    Promise.all([jpmPromise, usersPromise, staffPromise]).then((result) => {
+      this.jpms = result[0];
       this.users = result[1];
       this.staff = result[2];
-      this.filterStudentsToUsers();
+      this.jpms = this.filterJPMSToUsers();
     });
   }
 
-  filterStudentsToUsers() {
-    var userStudents: any[] = [];
+  filterJPMSToUsers() {
+    var userJPMS: any[] = [];
     for (let i = 0; i < this.users.length; i++) {
       var ultimate_id = this.users[i].ultimate_id;
       var user_id = this.users[i].id;
-      var matchedStudents = _.filter(this.students, function(student) {
-        if (student.id == ultimate_id) {
-          student.user_id = user_id;
+      var matchedJPM = _.filter(this.jpms, function(jpm) {
+        if (jpm.id == ultimate_id) {
+          jpm.user_id = user_id;
           return true;
         } else {
           return false;
         }
       });
-      userStudents.push(matchedStudents[0]);
+      if (matchedJPM.length == 1) {
+        userJPMS.push(matchedJPM[0]);
+      }
     }
-    this.students = userStudents;
+    return userJPMS;
   }
 
   loginUser(): void {

@@ -28,6 +28,11 @@ export class API {
     return this.getRequest(url);
   }
 
+  getAllJPMS() {
+    var url = 'https://apso.bsu.edu/ultimate/wp-json/ultimate/v1/students/jpms';
+    return this.getRequest(url);
+  }
+
   login(userID, password) {
     var url = 'https://apso.bsu.edu/tools/projects/api/users/initialize';
     let data = new URLSearchParams();
