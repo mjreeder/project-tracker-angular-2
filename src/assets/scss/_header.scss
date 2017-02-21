@@ -1,0 +1,31 @@
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $background;
+  height: 100px;
+  width: 100%;
+  z-index: 10;
+
+  ul {
+    position: fixed;
+    right: 30px;
+    top: 0;
+    // float: right;
+    margin: 30px;
+
+    .active-nav {
+      font-weight: $bold;
+    }
+
+    li {
+      display: inline;
+
+      a {
+        padding: 20px;
+        color: $text-color;
+        text-decoration: none;
+      }
+    }
+  }
+}
