@@ -1,6 +1,28 @@
-<h2>Login Page!</h2>
-<div *ngFor="let user of users">
-  <input type="radio" [(ngModel)]="userID"  name="user" value="{{user.id}}">{{user.name}}
+<header>
+  <h1> Project Status Manager</h1>
+</header>
+<div class="primary-button">
+  <button [ngClass]="{'active': employeeType == 'staff', 'deactive': employeeType != 'staff' }" (click)="setActiveEmployeeType('staff')"> <a>Staff</a></button>
+  <button [ngClass]="{'active': employeeType == 'jpm', 'deactive': employeeType != 'jpm' }" (click)="setActiveEmployeeType('jpm')"> <a>JPM</a></button>
 </div>
-Password: <input type="text" [(ngModel)]="password" name="password"><br>
-<button type="button" (click)="loginUser()">LOGIN</button>
+<!--  main section of members  -->
+
+<section class="grid" *ngIf="employeeType == 'staff'">
+  <div class="staff-members">
+    <ul [ngStyle]="{'column-count': numStaffColumns, 'width': staffWidth}">
+      <li *ngFor="let staffMember of staff">
+        <a (click)="loginUser(staffMember.user_id)"><img src="{{staffMember.thumbnail}}" alt="staff"></a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="grid" *ngIf="employeeType == 'jpm'">
+  <div class="jpm-members">
+    <ul [ngStyle]="{'column-count': numJPMColumns, 'width': jpmWidth}">
+      <li *ngFor="let jpm of jpms">
+        <a (click)="loginUser(jpm.user_id)"><img src="{{jpm.thumbnail}}" alt="jpm"></a>
+      </li>
+    </ul>
+  </div>
+</section>

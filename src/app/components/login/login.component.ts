@@ -18,7 +18,13 @@ export class LoginComponent implements OnInit {
 
   private token:any;
   private userID: number;
-  private password: string;
+  private password: string = 'digitalcorps';
+
+  private employeeType = 'staff';
+  private numStaffColumns = 0;
+  private numJPMColumns = 0;
+  private jpmWidth = '';
+  private staffWidth = '';
 
   constructor(
     private router: Router,
@@ -30,45 +36,58 @@ export class LoginComponent implements OnInit {
   }
 
   getData() {
-    var jpmPromise = this.API.getAllJPMS();
     var usersPromise = this.API.getAllUsers();
+    var jpmPromise = this.API.getAllJPMS();
     var staffPromise = this.API.getAllStaff();
-    Promise.all([jpmPromise, usersPromise, staffPromise]).then((result) => {
-      this.jpms = result[0];
-      this.users = result[1];
-      this.staff = result[2];
-      this.jpms = this.filterJPMSToUsers();
+    Promise.all([usersPromise, jpmPromise, staffPromise]).then((result) => {
+      this.users = _.uniqBy(result[0], 'ultimate_id');
+      this.jpms = this.filterEmployeeTypeToUsers(result[1]);
+      this.staff = this.filterEmployeeTypeToUsers(result[2]);
+      this.computeStyleVaribles();
     });
   }
 
-  filterJPMSToUsers() {
-    var userJPMS: any[] = [];
+  filterEmployeeTypeToUsers(employees: any[]) {
+    var userEmployees: any[] = [];
     for (let i = 0; i < this.users.length; i++) {
       var ultimate_id = this.users[i].ultimate_id;
       var user_id = this.users[i].id;
-      var matchedJPM = _.filter(this.jpms, function(jpm) {
-        if (jpm.id == ultimate_id) {
-          jpm.user_id = user_id;
+      var matchedEmployee = _.filter(employees, function(employee) {
+        if (employee.id == ultimate_id) {
+          employee.user_id = user_id;
           return true;
         } else {
           return false;
         }
       });
-      if (matchedJPM.length == 1) {
-        userJPMS.push(matchedJPM[0]);
+      if (matchedEmployee.length == 1) {
+        userEmployees.push(matchedEmployee[0]);
       }
     }
-    return userJPMS;
+    return userEmployees;
   }
 
-  loginUser(): void {
-    this.API.login(this.userID, this.password).then((result)=>{
+  computeStyleVaribles(): void {
+    this.numStaffColumns = this.staff.length > 8 ? Math.round(this.staff.length/2) : 4;
+    this.numJPMColumns = this.jpms.length > 8 ? Math.round(this.jpms.length/2) : 4;
+    this.jpmWidth = (this.numJPMColumns * 300 + 60).toString() + "px";
+    this.staffWidth = (this.numStaffColumns * 300 + 60).toString() + "px";
+  }
+
+  // TODO: Make password come from html instead of hardcoded value
+
+  loginUser(user_id): void {
+    this.API.login(user_id, this.password).then((result)=>{
       localStorage.setItem('jwtTokenString', JSON.stringify(result));
       this.router.navigate(['/projects']);
     }).catch((response)=>{
       alert(response.error);
     });
 
+  }
+
+  setActiveEmployeeType(employeeType): void {
+    this.employeeType = employeeType;
   }
 
 
