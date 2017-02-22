@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { API } from '../../services/api/api.service';
 
+import {StatusFilter} from '../../filters/status-filter';
+
 import * as _ from 'lodash';
 
 @Component({
@@ -13,16 +15,23 @@ import * as _ from 'lodash';
 
 export class ProjectComponent implements OnInit {
   private projects: any[] = [];
+  private filteredProjects: any[] = [];
   private assignments: any[] = [];
   private students: any[] = [];
 
   private numProjectColumns = 0;
   private projectWidth = '';
 
+  private selectedStatus: string = '';
+
+  private statusFilter: StatusFilter;
+
   constructor(
     private router: Router,
     private API: API
-  ) { }
+  ) {
+    this.statusFilter = new StatusFilter();
+  }
 
   ngOnInit() {
     this.getData();
@@ -37,6 +46,7 @@ export class ProjectComponent implements OnInit {
       this.assignments = result[1];
       this.students = result[2];
       this.formatProjectData();
+      this.filteredProjects = this.projects
       this.computeStyleVaribles();
       console.log(result[0]);
     }).catch(this.handleError);
@@ -82,8 +92,14 @@ export class ProjectComponent implements OnInit {
   }
 
   computeStyleVaribles(): void {
-    this.numProjectColumns = this.projects.length > 8 ? Math.round(this.projects.length / 2) : 4;
+    this.numProjectColumns = this.filteredProjects.length > 8 ? Math.round(this.filteredProjects.length / 2) : 4;
     this.projectWidth = (this.numProjectColumns * 333).toString() + "px";
+  }
+
+  setSelectedStatus(status: string): void {
+    this.selectedStatus = status;
+    this.filteredProjects = this.statusFilter.transform(this.projects, this.selectedStatus);
+    this.computeStyleVaribles();
   }
 
   goToDetails(id): void {
@@ -91,7 +107,7 @@ export class ProjectComponent implements OnInit {
   }
 
   addNewProject(event){
-    console.log(event);
+    alert("Add event");
   }
 
 }

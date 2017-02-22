@@ -15,6 +15,7 @@ import { API } from './services/api/api.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import {TeamFilter} from './filters/team-filter';
+import {StatusFilter} from './filters/status-filter';
 
 import {LoginGuard} from './guards/login.guard';
 
@@ -28,7 +29,8 @@ import '../rxjs-extensions';
     ProjectComponent,
     ProjectDetailComponent,
     ProjectStudentFooterComponent,
-    TeamFilter
+    TeamFilter,
+    StatusFilter
   ],
   imports: [
     BrowserModule,

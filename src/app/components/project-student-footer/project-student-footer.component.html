@@ -10,12 +10,12 @@
     <button type="button" (click)="goToStudents()" [disabled]="activePage == 'students'" [ngClass]="{'active': activePage == 'students', 'deactive': activePage != 'students'}"> <a>People</a></button>
   </div>
 
-  <div class="add-button" [hidden]="activePage == 'students'">
+  <div class="add-button" [hidden]="activePage == 'students'" (click)="addProject()">
     <img src="assets/images/back-button.svg" alt="add button">
   </div>
 
   <div class="logout-button">
-      <button class="deactive" ><a>Logout</a></button>
+      <button type="button" class="deactive" (click)="logoutUser()"><a>Logout</a></button>
   </div>
 
 </menu>

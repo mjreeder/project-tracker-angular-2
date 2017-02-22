@@ -12,22 +12,22 @@
 
 <nav>
   <ul>
-    <li class="active-nav">
+    <li (click)="setSelectedStatus('')" [ngClass]="{'active-nav': selectedStatus == ''}">
       <a>All</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Pitch')" [ngClass]="{'active-nav': selectedStatus == 'Pitch'}">
       <a>Pitch</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Research')" [ngClass]="{'active-nav': selectedStatus == 'Research'}">
       <a>Research</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Production')" [ngClass]="{'active-nav': selectedStatus == 'Production'}">
       <a>Production</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Delivered')" [ngClass]="{'active-nav': selectedStatus == 'Delivered'}">
       <a>Delivered</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Archived')" [ngClass]="{'active-nav': selectedStatus == 'Archived'}">
       <a>Archived</a>
     </li>
   </ul>
@@ -35,7 +35,7 @@
 
 <section class="project grid">
   <ul [ngStyle]="{'width': projectWidth}">
-    <li *ngFor="let project of projects">
+    <li *ngFor="let project of filteredProjects">
       <div class="list">
         <h1>{{project.name}}</h1>
         <div class="number">
@@ -47,5 +47,9 @@
     </li>
   </ul>
 </section>
+
+<div [hidden]="filteredProjects.length > 1 || selectedStatus ==''">
+  Nothing to See Here
+</div>
 
 <project-student-footer (addProjectEvent)="addNewProject($event)" [activePage]="'projects'"></project-student-footer>
