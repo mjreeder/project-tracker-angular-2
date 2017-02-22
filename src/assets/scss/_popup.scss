@@ -1,0 +1,118 @@
+.create-new-popup {
+    display: block;
+    margin: 100px auto;
+    background-color: $text-color;
+    width: 85%;
+    height: auto;
+    position: relative; 
+    h1 {
+        color: $white;
+        text-transform: uppercase;
+        font-weight: $medium;
+        font-size: 30px;
+        letter-spacing: 1.1px;
+    }
+}
+
+form {
+    background-color: $text-color;
+    color: $white;
+    position: relative;
+    padding: 0px 50px 50px 50px;
+    label {
+        min-width: 250px;
+        font-size: 20px;
+        text-align: right;
+    }
+    .input {
+        display: block;
+        padding: 20px 0px;
+    }
+    input {
+        background-color: $white;
+        border: none;
+        display: inline-block;
+        min-width: 60%;
+        margin-right: 50px;
+        height: 30px;
+        float: right;
+        outline: none;
+    }
+    input[type="text"] {
+        font-size: 20px;
+        font-family: $primary-font; 
+        color: $text-color; 
+    }
+
+textarea {
+    background-color: $white;
+    border: none;
+    display: inline-block;
+    min-width: 60%;
+    margin-right: 50px;
+    height: 100px;
+    float: right;
+    outline: none;
+}
+  textarea[type="text"] {
+        font-size: 20px;
+        font-family: $primary-font; 
+        color: $text-color; 
+    }
+
+
+}
+.popup-buttons {
+    clear: both;
+    margin-top: 50px;
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    // margin-top: 40px; 
+    button {
+        display: inline;
+        padding: 5px 10px;
+        font-family: $primary-font;
+        font-weight: $heavy;
+        color: $text-color;
+        text-decoration: none;
+        font-size: 20px;
+        background-color: $white;
+        border: 2px solid $border-color;
+        text-transform: uppercase;
+        margin-right: 10px;
+        outline: none;
+    }
+}
+.project-deadline {
+    label {
+        margin-top: 40px;
+        display: block;
+    }
+    
+    input {
+        margin-bottom: 40px;
+    }
+}
+
+
+.back-button {
+	position: absolute; 
+	top: 10px;
+	right: 10px; 
+}
+
+
+
+.active, .deactive { 
+ a {
+		padding: 40px 40px; 
+		font-family: $primary-font; 
+		font-weight: $heavy; 
+		color: $text-color; 
+		text-decoration: none; 
+		font-size: 32px; 
+		text-transform: uppercase; 
+	}
+
+}

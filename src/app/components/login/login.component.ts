@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   private jpms: any[] = [];
   private staff: any[] = [];
 
-  private token:any;
+  private token: any;
   private userID: number;
   private password: string = 'digitalcorps';
 
@@ -68,8 +68,8 @@ export class LoginComponent implements OnInit {
   }
 
   computeStyleVaribles(): void {
-    this.numStaffColumns = this.staff.length > 8 ? Math.round(this.staff.length/2) : 4;
-    this.numJPMColumns = this.jpms.length > 8 ? Math.round(this.jpms.length/2) : 4;
+    this.numStaffColumns = this.staff.length > 8 ? Math.round(this.staff.length / 2) : 4;
+    this.numJPMColumns = this.jpms.length > 8 ? Math.round(this.jpms.length / 2) : 4;
     this.jpmWidth = (this.numJPMColumns * 300 + 60).toString() + "px";
     this.staffWidth = (this.numStaffColumns * 300 + 60).toString() + "px";
   }
@@ -77,10 +77,10 @@ export class LoginComponent implements OnInit {
   // TODO: Make password come from html instead of hardcoded value
 
   loginUser(user_id): void {
-    this.API.login(user_id, this.password).then((result)=>{
-      localStorage.setItem('jwtTokenString', JSON.stringify(result));
+    this.API.login(user_id, this.password).then((result) => {
+      localStorage.setItem('jwtTokenPojectTracker', JSON.stringify(result));
       this.router.navigate(['/projects']);
-    }).catch((response)=>{
+    }).catch((response) => {
       alert(response.error);
     });
 

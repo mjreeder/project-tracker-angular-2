@@ -7,7 +7,7 @@ export class LoginGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate() {
-        if (localStorage.getItem('jwtTokenString')) {
+        if (localStorage.getItem('jwtTokenPojectTracker')) {
             // logged in so return true
             return true;
         }

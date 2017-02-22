@@ -1,4 +1,4 @@
-import { Http, URLSearchParams } from '@angular/http';
+import { Http, URLSearchParams, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -33,6 +33,12 @@ export class API {
     return this.getRequest(url);
   }
 
+  getAllProjects() {
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects';
+    var jwtString = this.getJWTString();
+    return this.getRequestAuth(url, jwtString);
+  }
+
   login(userID, password) {
     var url = 'https://apso.bsu.edu/tools/projects/api/users/initialize';
     let data = new URLSearchParams();
@@ -48,16 +54,32 @@ export class API {
       .toPromise();
   }
 
+  getRequestAuth(url: string, jwtString) {
+    console.log(jwtString);
+    var headers = this.createAuthorizationHeader(jwtString);
+    return this.http
+      .get(url, {'headers': headers})
+      .map(response => response.json())
+      .toPromise();
+  }
+
   postRequest(url: string, data: Object) {
     return this.http
       .post(url, data)
       .map(response => response.json())
-      .toPromise()
-      .catch(this.handleError);
+      .toPromise();
   }
 
-  private handleError(error: any): Promise<any> {
-    return Promise.reject(error.json());
+  createAuthorizationHeader(jwtString: string): Headers {
+    var headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + jwtString);
+    return headers;
+  }
+
+  getJWTString(): string {
+    var jwtToken = JSON.parse(localStorage.getItem('jwtTokenPojectTracker'));
+    var jwtString = jwtToken.token;
+    return jwtString;
   }
 
 }

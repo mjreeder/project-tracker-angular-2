@@ -34,145 +34,18 @@
 </nav>
 
 <section class="project grid">
-  <ul>
-    <li>
+  <ul [ngStyle]="{'width': projectWidth}">
+    <li *ngFor="let project of projects">
       <div class="list">
-        <h1>Project Name</h1>
+        <h1>{{project.name}}</h1>
         <div class="number">
-          <h2>#</h2>
+          <h2>{{project.students.length}}</h2>
           <h3>students</h3>
         </div>
-        <time>Month #</time>
+        <time>{{project.formatedDeadline}}</time>
       </div>
     </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
-    </li>
-    <li>
-      <div class="list">
-        <h1>Project Name</h1>
-        <div class="number">
-          <h2>#</h2>
-          <h3>students</h3>
-        </div>
-        <time>Month #</time>
-      </div>
   </ul>
 </section>
+
+<project-student-footer (addProjectEvent)="addNewProject($event)" [activePage]="'projects'"></project-student-footer>

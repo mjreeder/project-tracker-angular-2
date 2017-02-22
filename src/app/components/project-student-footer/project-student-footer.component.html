@@ -1,4 +1,21 @@
-<button type="button" (click)="goToProjects()" [disabled]="activePage == 'projects'">Projects</button>
+<!-- <button type="button" (click)="goToProjects()" [disabled]="activePage == 'projects'">Projects</button>
 <button type="button" (click)="goToStudents()" [disabled]="activePage == 'students'">Students</button>
 <button type="button" (click)="addProject()" [hidden]="activePage == 'students'">+</button>
-<button type="button" (click)="logoutUser()">LOGOUT</button>
+<button type="button" (click)="logoutUser()">LOGOUT</button> -->
+
+<menu>
+
+  <div class="primary-button ">
+    <button type="button" (click)="goToProjects()" [disabled]="activePage == 'projects'" [ngClass]="{'active': activePage == 'projects', 'deactive': activePage != 'projects'}"> <a>Projects</a></button>
+    <button type="button" (click)="goToStudents()" [disabled]="activePage == 'students'" [ngClass]="{'active': activePage == 'students', 'deactive': activePage != 'students'}"> <a>People</a></button>
+  </div>
+
+  <div class="add-button" [hidden]="activePage == 'students'">
+    <img src="assets/images/back-button.svg" alt="add button">
+  </div>
+
+  <div class="logout-button">
+      <button class="deactive" ><a>Logout</a></button>
+  </div>
+
+</menu>
