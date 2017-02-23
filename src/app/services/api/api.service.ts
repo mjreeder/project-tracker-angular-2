@@ -63,6 +63,17 @@ export class API {
     return this.postRequestAuth(url, data, jwtString);
   }
 
+  createNewDate(projectID, name, description, date) {
+    var jwtString = this.getJWTString();
+    var url = 'https://apso.bsu.edu/tools/projects/api/dates';
+    let data = new URLSearchParams();
+    data.append('project_id', projectID);
+    data.append('name', name);
+    data.append('description', description);
+    data.append('date', date);
+    return this.postRequestAuth(url, data, jwtString);
+  }
+
   getRequest(url: string) {
     return this.http
       .get(url)

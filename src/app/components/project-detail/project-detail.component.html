@@ -5,6 +5,7 @@
   <p>
     {{projectTimeRemaining}} days remaining
   </p>
+  <br>
   <div>
     important dates
     <ul *ngFor="let date of project.dates">
@@ -13,6 +14,7 @@
       <li>{{date.description}}</li>
     </ul>
   </div>
+  <br>
   <div>
     <ul *ngFor="let task of project.tasks">
       <li>{{task.name}}</li>
@@ -41,6 +43,13 @@
       <img src={{student.thumbnail}}/>
     </li>
   </ul>
+</div>
+<br>
+<div>
+  <input type="text" name="dateName" [(ngModel)]="dateName">
+  <input type="text" name="dateDescription" [(ngModel)]="dateDescription">
+  <input type="text" name="dateString" [(ngModel)]="dateString">
+  <button type="button" (click)="createNewDate()"> Submit</button>
 </div>
 <button type="button" (click)="goToProjects()">Projects</button>
 <button type="button" (click)="goToStudents()">Students</button>

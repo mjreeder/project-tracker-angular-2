@@ -33,7 +33,7 @@ export class ProjectStudentFooterComponent implements OnInit {
   }
 
   logoutUser(): void {
-    localStorage.removeItem('jwtTokenString');
+    localStorage.removeItem('jwtTokenPojectTracker');
     this.router.navigate(['/login']);
   }
 
