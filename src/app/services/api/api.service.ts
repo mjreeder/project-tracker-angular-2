@@ -94,6 +94,31 @@ export class API {
       .toPromise();
   }
 
+  patchRequestAuth(url: string, data: Object, jwtString: string) {
+    var headers = this.createAuthorizationHeader(jwtString);
+    return this.http
+      .patch(url, data, { 'headers': headers })
+      .map(response => response.json())
+      .toPromise();
+  }
+
+  postProjectTask(projectID, name){
+    var url = 'https://apso.bsu.edu/tools/projects/api/tasks';
+    var jwtString = this.getJWTString();
+    let data = new URLSearchParams();
+    data.append('name', name);
+    data.append('project_id', projectID);
+    return this.postRequestAuth(url, data, jwtString);
+  }
+
+  editProjectNotes(note, id){
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id +'/notes';
+    var jwtString = this.getJWTString();
+    let data = new URLSearchParams();
+    data.append('notes', note);
+    return this.patchRequestAuth(url, data, jwtString);
+  }
+
   createAuthorizationHeader(jwtString: string): Headers {
     var headers = new Headers();
     headers.append('Authorization', 'Bearer ' + jwtString);

@@ -8,19 +8,21 @@
   <div>
     important dates
     <ul *ngFor="let date of project.dates">
-      <li>{{date.formattedDate}}</li>
+      <li>{{date.formatedDate}}</li>
       <li>{{date.name}}</li>
       <li>{{date.description}}</li>
     </ul>
   </div>
   <div>
     <ul *ngFor="let task of project.tasks">
-      <li>{{task}}</li>
+      <li>{{task.name}}</li>
     </ul>
+    <input [(ngModel)]="newTask"/>
+    <button (click)="addProjectTask(newTask)">add task</button>
   </div>
   <div>
     project notes:
-    {{projectNotes}}
+    <input type="text" [(ngModel)]="projectNotes" (blur)="editProjectNotes()">
   </div>
 </div>
 

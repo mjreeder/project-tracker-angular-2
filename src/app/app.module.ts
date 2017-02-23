@@ -11,6 +11,7 @@ import { ProjectDetailComponent } from './components/project-detail/project-deta
 import { ProjectStudentFooterComponent } from './components/project-student-footer/project-student-footer.component';
 
 import { API } from './services/api/api.service';
+import { Helper } from './services/helpers/helpers.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -38,7 +39,7 @@ import '../rxjs-extensions';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [API, LoginGuard],
+  providers: [API, LoginGuard, Helper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

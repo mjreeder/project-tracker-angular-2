@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { API } from '../../services/api/api.service';
+import { Helper } from '../../services/helpers/helpers.service';
 
 import * as _ from 'lodash';
 @Component({
@@ -25,6 +26,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private API: API,
+    private helper: Helper
 
   ) { }
 
@@ -39,18 +41,17 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     var staffPromse = this.API.getAllStaff();
     var assignmentPromise = this.API.getAllAssignments();
     var studentPromise = this.API.getAllStudents();
-    Promise.all([projectPromeis, projectJPMPromise, staffPromse, assignmentPromise, studentPromise]).then((result) => {
+    Promise.all([projectPromeis, projectJPMPromise, staffPromse, assignmentPromise, studentPromise]).then((result: any) => {
       this.getJPMFromID(result[0].jpm_ultimate_id, result[1]);
       this.getStaffFromId(result[0].staff_ultimate_id, result[2]);
       this.project = result[0];
       this.assignments = result[3];
       this.students = result[4];
       this.project.students = this.getProjectStudents(this.project);
-      this.project.formatedDeadline = this.getFormatedDeadline(this.project);
+      this.project.formatedDeadline = this.helper.getFormattedDate(this.project.deadline);
       this.getTimeRemaining();
       this.getMajorDeadlines();
       this.getProjectNotes();
-      this.getProjectTasks();
       console.log(this.project);
     }).catch(this.handleError);
   }
@@ -68,7 +69,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         }
       });
     }
-
   }
 
   getStaffFromId(staffId, staffArray: any[]) {
@@ -76,7 +76,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       var staffMember = _.findIndex(staffArray, function(o) { return o.id == staffId; });
       this.staffMember = staffArray[staffMember];
     }
-
   }
 
   getProjectStudents(project: any): any[] {
@@ -91,13 +90,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     return students;
   }
 
-  getFormatedDeadline(project: any): string {
-    var dateParts = project.deadline.split('-');
-    var myDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-    var locale = "en-us";
-    var month = myDate.toLocaleString(locale, { month: "long" });
-    var day = myDate.getDate();
-    return month + ' ' + day;
+  addProjectTask(newTask) {
+    var createTaskPromise = this.API.postProjectTask(this.project.id, newTask);
+    createTaskPromise.then((result: any) => {
+      this.project.tasks.push(result);
+    }).catch(this.handleError);
   }
 
   getTimeRemaining() {
@@ -110,12 +107,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   getMajorDeadlines() {
     if (this.project.deadline.length > 0) {
       for (let i = 0; i < this.project.dates.length; i++) {
-        var dateParts = this.project.dates[i].date.split('-');
-        var myDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-        var locale = "en-us";
-        var month = myDate.toLocaleString(locale, { month: "long" });
-        var day = myDate.getDate();
-        this.project.dates[i].formattedDate = month + ' ' + day;
+        this.project.dates[i].formatedDate = this.helper.getFormattedDate(this.project.dates[i].date);
       }
     }
   }
@@ -126,10 +118,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  getProjectTasks(){
-    if(this.project.tasks.length > 0){
-      console.log('derp');
-    }
+  editProjectNotes() {
+    this.API.editProjectNotes(this.projectNotes, this.project.id);
   }
 
   goToProjects(): void {
