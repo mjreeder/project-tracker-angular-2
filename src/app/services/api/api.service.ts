@@ -39,6 +39,12 @@ export class API {
     return this.getRequestAuth(url, jwtString);
   }
 
+  getProjectByID(id){
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id;
+    var jwtString = this.getJWTString();
+    return this.getRequestAuth(url, jwtString);
+  }
+
   login(userID, password) {
     var url = 'https://apso.bsu.edu/tools/projects/api/users/initialize';
     let data = new URLSearchParams();

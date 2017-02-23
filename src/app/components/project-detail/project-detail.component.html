@@ -1,3 +1,44 @@
-<h2>Project {{id}} Details</h2>
+<div>
+  <h2>{{project.name}}</h2>
+  <h3>{{project.status}}</h3>
+  <p>{{project.description}}</p>
+  <p>
+    {{projectTimeRemaining}} days remaining
+  </p>
+  <div>
+    important dates
+    <ul *ngFor="let date of project.dates">
+      <li>{{date.formattedDate}}</li>
+      <li>{{date.name}}</li>
+      <li>{{date.description}}</li>
+    </ul>
+  </div>
+  <div>
+    <ul *ngFor="let task of project.tasks">
+      <li>{{task}}</li>
+    </ul>
+  </div>
+  <div>
+    project notes:
+    {{projectNotes}}
+  </div>
+</div>
+
+<div>
+  JPM:
+  {{projectJPM.name}} <img src={{projectJPM.thumbnail}}/>
+</div>
+<div>
+  <h5>{{staffMember.name}}</h5>
+  <img src={{staffMember.thumbnail}}/>
+</div>
+<div>
+  <br> students
+  <ul>
+    <li *ngFor="let student of project.students">
+      <img src={{student.thumbnail}}/>
+    </li>
+  </ul>
+</div>
 <button type="button" (click)="goToProjects()">Projects</button>
 <button type="button" (click)="goToStudents()">Students</button>

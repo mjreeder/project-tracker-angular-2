@@ -12,22 +12,22 @@
 
 <nav>
   <ul>
-    <li (click)="setSelectedStatus('')" [ngClass]="{'active-nav': selectedStatus == ''}">
+    <li class="active-nav">
       <a>All</a>
     </li>
-    <li (click)="setSelectedStatus('Pitch')" [ngClass]="{'active-nav': selectedStatus == 'Pitch'}">
+    <li>
       <a>Pitch</a>
     </li>
-    <li (click)="setSelectedStatus('Research')" [ngClass]="{'active-nav': selectedStatus == 'Research'}">
+    <li>
       <a>Research</a>
     </li>
-    <li (click)="setSelectedStatus('Production')" [ngClass]="{'active-nav': selectedStatus == 'Production'}">
+    <li>
       <a>Production</a>
     </li>
-    <li (click)="setSelectedStatus('Delivered')" [ngClass]="{'active-nav': selectedStatus == 'Delivered'}">
+    <li>
       <a>Delivered</a>
     </li>
-    <li (click)="setSelectedStatus('Archived')" [ngClass]="{'active-nav': selectedStatus == 'Archived'}">
+    <li>
       <a>Archived</a>
     </li>
   </ul>
@@ -35,7 +35,7 @@
 
 <section class="project grid">
   <ul [ngStyle]="{'width': projectWidth}">
-    <li *ngFor="let project of filteredProjects">
+    <li *ngFor="let project of projects" (click)="goToDetails(project.id)">
       <div class="list">
         <h1>{{project.name}}</h1>
         <div class="number">
@@ -47,9 +47,5 @@
     </li>
   </ul>
 </section>
-
-<div [hidden]="filteredProjects.length > 1 || selectedStatus ==''">
-  Nothing to See Here
-</div>
 
 <project-student-footer (addProjectEvent)="addNewProject($event)" [activePage]="'projects'"></project-student-footer>
