@@ -40,7 +40,7 @@
   <br> students
   <ul>
     <li *ngFor="let student of project.students">
-      <img src={{student.thumbnail}}/>
+      <img src={{student.thumbnail}}  *ngIf="student.id !== projectJPM.id"/>
     </li>
   </ul>
 </div>
