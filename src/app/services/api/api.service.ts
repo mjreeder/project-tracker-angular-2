@@ -39,7 +39,7 @@ export class API {
     return this.getRequestAuth(url, jwtString);
   }
 
-  getProjectByID(id){
+  getProjectByID(id) {
     var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id;
     var jwtString = this.getJWTString();
     return this.getRequestAuth(url, jwtString);
@@ -113,7 +113,7 @@ export class API {
       .toPromise();
   }
 
-  postProjectTask(projectID, name){
+  postProjectTask(projectID, name) {
     var url = 'https://apso.bsu.edu/tools/projects/api/tasks';
     var jwtString = this.getJWTString();
     let data = new URLSearchParams();
@@ -122,11 +122,27 @@ export class API {
     return this.postRequestAuth(url, data, jwtString);
   }
 
-  editProjectNotes(note, id){
-    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id +'/notes';
+  editProjectNotes(note, id) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id + '/notes';
     var jwtString = this.getJWTString();
     let data = new URLSearchParams();
     data.append('notes', note);
+    return this.patchRequestAuth(url, data, jwtString);
+  }
+
+  editProjectConfidence(rating, id) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id + '/confidence';
+    var jwtString = this.getJWTString();
+    let data = new URLSearchParams();
+    data.append('rating', rating);
+    return this.patchRequestAuth(url, data, jwtString);
+  }
+
+  editProjectPriority(rating, id) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id + '/priority';
+    var jwtString = this.getJWTString();
+    let data = new URLSearchParams();
+    data.append('rating', rating);
     return this.patchRequestAuth(url, data, jwtString);
   }
 

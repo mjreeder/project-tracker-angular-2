@@ -22,9 +22,10 @@
     <input [(ngModel)]="newTask"/>
     <button (click)="addProjectTask(newTask)">add task</button>
   </div>
-  <div>
-    project notes:
-    <input type="text" [(ngModel)]="projectNotes" (blur)="editProjectNotes()">
+  <div class="notes">
+      <section>
+          <p contenteditable="true" [textContent]="projectNotes" (input)="projectNotes=$event.target.textContent" (blur)="editProjectNotes()"></p>
+      </section>
   </div>
 </div>
 

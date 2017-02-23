@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { API } from '../../services/api/api.service';
 import { Helper } from '../../services/helpers/helpers.service';
+import { BrowserModule }  from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
 import * as _ from 'lodash';
 @Component({
@@ -9,6 +11,7 @@ import * as _ from 'lodash';
   templateUrl: 'project-detail.component.html',
   styleUrls: ['project-detail.component.scss']
 })
+
 
 export class ProjectDetailComponent implements OnInit, OnDestroy {
 
@@ -126,12 +129,26 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     this.API.editProjectNotes(this.projectNotes, this.project.id);
   }
 
+  editProjectConfidence(){
+    var rating = 10;
+    this.API.editProjectConfidence(rating, this.project.id);
+  }
+
+  editProjectPriority(){
+    var rating = 10;
+    this.API.editProjectPriority(rating, this.project.id);
+  }
+
   createNewDate() {
     this.API.createNewDate(this.id, this.dateName, this.dateDescription, this.dateString).then((result) => {
       console.log(result);
     }).catch((response) => {
       console.log(response);
     });
+  }
+
+  projectNotesValue(){
+
   }
 
   goToProjects(): void {
