@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { API } from '../../services/api/api.service';
+import { Helper } from '../../services/helpers/helpers.service';
 
 import {StatusFilter} from '../../filters/status-filter';
 
@@ -30,7 +31,8 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private API: API
+    private API: API,
+    private Helper: Helper
   ) {
     this.statusFilter = new StatusFilter();
   }
@@ -55,7 +57,7 @@ export class ProjectComponent implements OnInit {
   formatProjectData(): void {
     for (let i = 0; i < this.projects.length; i++) {
       this.projects[i].name = this.reduceProjectNameLength(this.projects[i]);
-      this.projects[i].formatedDeadline = this.getFormatedDeadline(this.projects[i]);
+      this.projects[i].formatedDeadline = this.Helper.getFormattedDate(this.projects[i].deadline);
     }
   }
 
@@ -65,15 +67,6 @@ export class ProjectComponent implements OnInit {
     } else {
       return project.name;
     }
-  }
-
-  getFormatedDeadline(project: any): string {
-    var dateParts = project.deadline.split('-');
-    var myDate = new Date(dateParts[0], dateParts[1]-1, dateParts[2]);
-    var locale = "en-us";
-    var month = myDate.toLocaleString(locale, { month: "long" });
-    var day = myDate.getDate();
-    return month + ' ' + day;
   }
 
   computeStyleVaribles(): void {
@@ -103,7 +96,7 @@ export class ProjectComponent implements OnInit {
 
   formatNewProjectData(project: any): any {
     project.name = this.reduceProjectNameLength(project);
-    project.formatedDeadline = this.getFormatedDeadline(project);
+    project.formatedDeadline = this.Helper.getFormattedDate(project.deadline);
     return project;
   }
 
