@@ -56,7 +56,6 @@ export class ProjectComponent implements OnInit {
     for (let i = 0; i < this.projects.length; i++) {
       this.projects[i].name = this.reduceProjectNameLength(this.projects[i]);
       this.projects[i].formatedDeadline = this.getFormatedDeadline(this.projects[i]);
-      this.projects[i].assignment_count = this.addJPMToAssignmentCount(this.projects[i]);
     }
   }
 
@@ -75,14 +74,6 @@ export class ProjectComponent implements OnInit {
     var month = myDate.toLocaleString(locale, { month: "long" });
     var day = myDate.getDate();
     return month + ' ' + day;
-  }
-
-  addJPMToAssignmentCount(project: any): number {
-    if (project.jpm_ultimate_id) {
-      return project.assignment_count + 1;
-    } else {
-      return project.assignment_count;
-    }
   }
 
   computeStyleVaribles(): void {
@@ -113,7 +104,6 @@ export class ProjectComponent implements OnInit {
   formatNewProjectData(project: any): any {
     project.name = this.reduceProjectNameLength(project);
     project.formatedDeadline = this.getFormatedDeadline(project);
-    project.assignment_count = this.addJPMToAssignmentCount(project);
     return project;
   }
 
