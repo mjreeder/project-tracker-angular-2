@@ -21,6 +21,10 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   private projectTimeRemaining: any;
   private projectNotes: any;
 
+  private dateName: string;
+  private dateDescription: string;
+  private dateString: string;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -130,6 +134,14 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     if(this.project.tasks.length > 0){
       console.log('derp');
     }
+  }
+
+  createNewDate() {
+    this.API.createNewDate(this.id, this.dateName, this.dateDescription, this.dateString).then((result) => {
+      console.log(result);
+    }).catch((response) => {
+      console.log(response);
+    });
   }
 
   goToProjects(): void {
