@@ -1,20 +1,40 @@
-<h2>Students</h2>
-<input type="radio" [(ngModel)]="team"  name="team" value="">All
-<input type="radio" [(ngModel)]="team"  name="team" value="Communication">Communication
-<input type="radio" [(ngModel)]="team"  name="team" value="Design">Design
-<input type="radio" [(ngModel)]="team"  name="team" value="Development">Development
-<input type="radio" [(ngModel)]="team"  name="team" value="UX">UX
-<br>
-
-<div *ngFor="let student of students | teamFilter:team">
-	<b>{{student.name}}</b>
-	<br>
-	<img src="{{student.thumbnail}}" alt="" style="height: 100px; width: 100px">
+<nav>
 	<ul>
-		<li *ngFor="let assign of student.assignments">
-			{{assign.project_name}}
+		<li (click)="setSelectedTeam('')" [ngClass]="{'active-nav': selectedTeam == ''}">
+			<a>All</a>
+		</li>
+		<li (click)="setSelectedTeam('Communication')" [ngClass]="{'active-nav': selectedTeam == 'Communication'}">
+			<a>Comm</a>
+		</li>
+		<li (click)="setSelectedTeam('Design')" [ngClass]="{'active-nav': selectedTeam == 'Design'}">
+			<a>Design</a>
+		</li>
+		<li (click)="setSelectedTeam('Development')" [ngClass]="{'active-nav': selectedTeam == 'Development'}">
+			<a>Development</a>
+		</li>
+		<li (click)="setSelectedTeam('Video')" [ngClass]="{'active-nav': selectedTeam == 'Video'}">
+			<a>Video</a>
+		</li>
+		<li (click)="setSelectedTeam('UX')" [ngClass]="{'active-nav': selectedTeam == 'UX'}">
+			<a>UX</a>
 		</li>
 	</ul>
-</div>
+</nav>
+
+<section class="student-listing grid">
+	<ul class="student-container" [ngStyle]="{'width': studentWidth}">
+		<li *ngFor="let student of filteredStudents" class="student">
+			<div class="list">
+				<img src="{{student.thumbnail}}" alt="student">
+				<div class="label">
+					<h1>{{student.firstName}}</h1>
+				</div>
+				<ul class="project-listings" id="project-listings">
+					<li id="project" *ngFor="let assign of student.assignments"><a href="#">{{assign.project_name}}</a></li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+</section>
 
 <project-student-footer [activePage]="'students'"></project-student-footer>
