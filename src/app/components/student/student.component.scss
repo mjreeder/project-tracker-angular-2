@@ -1,0 +1,82 @@
+@import "../../../styles";
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.student-listing {
+  padding-bottom: 100px;
+  .student-container {
+    width: 2450px;
+
+    li {
+      width: 300px;
+    }
+
+    .list {
+      height: 300px;
+      width: 100px;
+      background-color: $white;
+      border: 1px solid $border-color;
+      position: relative;
+
+      h1 {
+        color: $white;
+        text-align: left;
+        float: left;
+        background: $text-color;
+        width: 100%;
+        background: $text-color;
+        width: 300px;
+        margin-top: -5px;
+        font-size: 24px;
+        font-weight: $medium;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 20px;
+      }
+    }
+  }
+}
+
+.list .project-listings {
+  max-height: 150px;
+  min-height: 150px;
+  overflow-y: scroll;
+
+}
+
+.list {
+  margin-top: 75px;
+  img {
+    height: 250px;
+    width: 200px;
+  }
+}
+
+.project-listings {
+  background-color: $white;
+  color: $text-color;
+  width: 300px;
+
+  li {
+    color: $text-color;
+    list-style: none;
+    margin: 0;
+
+    a {
+      color: $text-color;
+      list-style: none;
+      text-decoration: none;
+    }
+  }
+}
+
+.grid ul {
+  padding: 0;
+  overflow: visible;
+}

@@ -1,45 +1,33 @@
-<!-- <h2>Projects</h2>
-
-<section>
-  <button type="button" (click)="goToDetails(1)">Project 1 Details</button>
-  <button type="button" (click)="goToDetails(2)">Project 2 Details</button>
-  <button type="button" (click)="goToDetails(3)">Project 3 Details</button>
-</section>
-
-<br>
-
-<project-student-footer (addProjectEvent)="addNewProject($event)" [activePage]="'projects'"></project-student-footer> -->
-
 <nav>
   <ul>
-    <li class="active-nav">
+    <li (click)="setSelectedStatus('')" [ngClass]="{'active-nav': selectedStatus == ''}">
       <a>All</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Pitch')" [ngClass]="{'active-nav': selectedStatus == 'Pitch'}">
       <a>Pitch</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Research')" [ngClass]="{'active-nav': selectedStatus == 'Research'}">
       <a>Research</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Production')" [ngClass]="{'active-nav': selectedStatus == 'Production'}">
       <a>Production</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Delivered')" [ngClass]="{'active-nav': selectedStatus == 'Delivered'}">
       <a>Delivered</a>
     </li>
-    <li>
+    <li (click)="setSelectedStatus('Archived')" [ngClass]="{'active-nav': selectedStatus == 'Archived'}">
       <a>Archived</a>
     </li>
   </ul>
 </nav>
 
-<section class="project grid">
+<section class="project grid" *ngIf="!showNewProjectForm">
   <ul [ngStyle]="{'width': projectWidth}">
-    <li *ngFor="let project of projects" (click)="goToDetails(project.id)">
-      <div class="list">
+    <li *ngFor="let project of filteredProjects">
+      <div class="list" (click)="goToDetails(project.id)">
         <h1>{{project.name}}</h1>
         <div class="number">
-          <h2>{{project.students.length}}</h2>
+          <h2>{{project.assignment_count}}</h2>
           <h3>students</h3>
         </div>
         <time>{{project.formatedDeadline}}</time>
@@ -47,5 +35,36 @@
     </li>
   </ul>
 </section>
+
+<div [hidden]="(filteredProjects.length > 1 || selectedStatus =='') && !showNewProjectForm">
+  Nothing to See Here
+</div>
+
+<div class="create-new-popup" *ngIf="showNewProjectForm">
+  <h1>Create a new project</h1>
+  <div class="back-button" (click)="showNewProjectForm = false">
+    <img src="assets/images/back-button.svg" alt="back button">
+  </div>
+  <form action="">
+    <div class="input">
+      <label>Name of Project </label>
+      <input type="text" name="nameofproject" [(ngModel)]="projectName">
+    </div>
+    <div class="input">
+      <label> Project Description </label>
+      <textarea type="text" name="projectdescription" [(ngModel)]="projectDescription"></textarea>
+    </div>
+  </form>
+  <form action="">
+    <div class="input">
+      <label class="project-deadline">Project Deadline </label>
+      <input type="text" name="projectdeadline" [(ngModel)]="projectDeadline">
+      <div class="popup-buttons">
+        <button type="button" (click)="showNewProjectForm = false"> Cancel</button>
+        <button type="button" (click)="createNewProject()"> Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
 
 <project-student-footer (addProjectEvent)="addNewProject($event)" [activePage]="'projects'"></project-student-footer>

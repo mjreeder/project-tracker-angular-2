@@ -16,15 +16,17 @@ import * as _ from 'lodash';
 export class ProjectComponent implements OnInit {
   private projects: any[] = [];
   private filteredProjects: any[] = [];
-  private assignments: any[] = [];
-  private students: any[] = [];
 
   private numProjectColumns = 0;
   private projectWidth = '';
 
   private selectedStatus: string = '';
-
   private statusFilter: StatusFilter;
+
+  private showNewProjectForm: boolean = false;
+  private projectName: string;
+  private projectDescription: string;
+  private projectDeadline: string;
 
   constructor(
     private router: Router,
@@ -38,17 +40,11 @@ export class ProjectComponent implements OnInit {
   }
 
   getData() {
-    var projectPromise = this.API.getAllProjects();
-    var assignmentPromise = this.API.getAllAssignments();
-    var studentPromise = this.API.getAllStudents();
-    Promise.all([projectPromise, assignmentPromise, studentPromise]).then((result) => {
-      this.projects = result[0];
-      this.assignments = result[1];
-      this.students = result[2];
+    this.API.getAllProjects().then((result) => {
+      this.projects = result;
       this.formatProjectData();
       this.filteredProjects = this.projects
       this.computeStyleVaribles();
-      console.log(result[0]);
     }).catch(this.handleError);
   }
 
@@ -60,7 +56,7 @@ export class ProjectComponent implements OnInit {
     for (let i = 0; i < this.projects.length; i++) {
       this.projects[i].name = this.reduceProjectNameLength(this.projects[i]);
       this.projects[i].formatedDeadline = this.getFormatedDeadline(this.projects[i]);
-      this.projects[i].students = this.getProjectStudents(this.projects[i]);
+      this.projects[i].assignment_count = this.addJPMToAssignmentCount(this.projects[i]);
     }
   }
 
@@ -81,14 +77,12 @@ export class ProjectComponent implements OnInit {
     return month + ' ' + day;
   }
 
-  getProjectStudents(project: any): any[] {
-    var students = [];
-    var studentAssignments = _.filter(this.assignments, { assignments: [ { project_id: project.id } ]});
-    for (let x = 0; x < studentAssignments.length; x++) {
-      var studentObject = _.find(this.students, ['id', parseInt(studentAssignments[x].ultimate_id)]);
-      students.push(studentObject);
+  addJPMToAssignmentCount(project: any): number {
+    if (project.jpm_ultimate_id) {
+      return project.assignment_count + 1;
+    } else {
+      return project.assignment_count;
     }
-    return students;
   }
 
   computeStyleVaribles(): void {
@@ -102,12 +96,35 @@ export class ProjectComponent implements OnInit {
     this.computeStyleVaribles();
   }
 
-  goToDetails(id): void {
-    this.router.navigate(['/project-details', id]);
+  addNewProject(event){
+    this.showNewProjectForm = true;
   }
 
-  addNewProject(event){
-    alert("Add event");
+  createNewProject() {
+    this.API.createNewProject(this.projectName, this.projectDescription, this.projectDeadline).then((result) => {
+      var project = this.formatNewProjectData(result);
+      this.insertNewProjectIntoArray(project);
+      this.showNewProjectForm = false;
+    }).catch((response) => {
+      this.showNewProjectForm = false;
+    });
+  }
+
+  formatNewProjectData(project: any): any {
+    project.name = this.reduceProjectNameLength(project);
+    project.formatedDeadline = this.getFormatedDeadline(project);
+    project.assignment_count = this.addJPMToAssignmentCount(project);
+    return project;
+  }
+
+  insertNewProjectIntoArray(project: any): void {
+    var insertIndex = _.sortedIndexBy(this.projects, project, 'name');
+    this.projects.splice(insertIndex, 0, project);
+    this.filteredProjects = this.statusFilter.transform(this.projects, this.selectedStatus);
+  }
+
+  goToDetails(id): void {
+    this.router.navigate(['/project-details', id]);
   }
 
 }

@@ -53,6 +53,16 @@ export class API {
     return this.postRequest(url, data);
   }
 
+  createNewProject(name, description, deadline) {
+    var jwtString = this.getJWTString();
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects';
+    let data = new URLSearchParams();
+    data.append('name', name);
+    data.append('description', description);
+    data.append('deadline', deadline);
+    return this.postRequestAuth(url, data, jwtString);
+  }
+
   getRequest(url: string) {
     return this.http
       .get(url)
@@ -64,7 +74,7 @@ export class API {
     console.log(jwtString);
     var headers = this.createAuthorizationHeader(jwtString);
     return this.http
-      .get(url, {'headers': headers})
+      .get(url, { 'headers': headers })
       .map(response => response.json())
       .toPromise();
   }
@@ -72,6 +82,14 @@ export class API {
   postRequest(url: string, data: Object) {
     return this.http
       .post(url, data)
+      .map(response => response.json())
+      .toPromise();
+  }
+
+  postRequestAuth(url: string, data: Object, jwtString: string) {
+    var headers = this.createAuthorizationHeader(jwtString);
+    return this.http
+      .post(url, data, { 'headers': headers })
       .map(response => response.json())
       .toPromise();
   }
