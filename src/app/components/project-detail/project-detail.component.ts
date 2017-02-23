@@ -24,6 +24,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   private students: any[] = [];
   private projectTimeRemaining: any;
   private projectNotes: any;
+  private projectPriority: any;
+  private projectConfidence: any;
 
   private dateName: string;
   private dateDescription: string;
@@ -56,6 +58,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       this.students = result[4];
       this.project.students = this.getProjectStudents(this.project);
       this.project.formatedDeadline = this.helper.getFormattedDate(this.project.deadline);
+      this.projectConfidence = this.project.confidence;
+      this.projectPriority = this.project.priority;
       this.getTimeRemaining();
       this.getMajorDeadlines();
       this.getProjectNotes();
@@ -130,13 +134,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   editProjectConfidence(){
-    var rating = 10;
-    this.API.editProjectConfidence(rating, this.project.id);
+    this.API.editProjectConfidence(this.projectConfidence, this.project.id);
   }
 
   editProjectPriority(){
-    var rating = 10;
-    this.API.editProjectPriority(rating, this.project.id);
+    this.API.editProjectPriority(this.projectPriority, this.project.id);
   }
 
   createNewDate() {

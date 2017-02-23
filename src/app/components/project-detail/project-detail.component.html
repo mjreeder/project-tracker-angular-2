@@ -27,6 +27,17 @@
           <p contenteditable="true" [textContent]="projectNotes" (input)="projectNotes=$event.target.textContent" (blur)="editProjectNotes()"></p>
       </section>
   </div>
+  <!--  SLIDERS -->
+  <div class="sliders">
+      <div class="priority">
+          <input type="range" min="0" max="10" [(ngModel)]="projectPriority" (blur)="editProjectPriority()">
+          <label for="priority">priority</label>
+      </div>
+      <div class="confidence">
+          <input type="range" min="0" max="10" [(ngModel)]="projectConfidence" (blur)="editProjectConfidence()">
+          <label for="confidence">confidence</label>
+      </div>
+  </div>
 </div>
 
 <div>
