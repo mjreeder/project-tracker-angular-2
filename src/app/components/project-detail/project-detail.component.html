@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <h2>{{project.name}}</h2>
   <h3>{{project.status}}</h3>
   <p>{{project.description}}</p>
@@ -26,9 +26,9 @@
       <section>
           <p contenteditable="true" [textContent]="projectNotes" (input)="projectNotes=$event.target.textContent" (blur)="editProjectNotes()"></p>
       </section>
-  </div>
-  <!--  SLIDERS -->
-  <div class="sliders">
+  </div> -->
+<!--  SLIDERS -->
+<!-- <div class="sliders">
       <div class="priority">
           <input type="range" min="0" max="10" [(ngModel)]="projectPriority" (blur)="editProjectPriority()">
           <label for="priority">priority</label>
@@ -38,9 +38,9 @@
           <label for="confidence">confidence</label>
       </div>
   </div>
-</div>
+</div> -->
 
-<div>
+<!-- <div>
   JPM:
   {{projectJPM.name}} <img src={{projectJPM.thumbnail}}/>
 </div>
@@ -64,4 +64,126 @@
   <button type="button" (click)="createNewDate()"> Submit</button>
 </div>
 <button type="button" (click)="goToProjects()">Projects</button>
-<button type="button" (click)="goToStudents()">Students</button>
+<button type="button" (click)="goToStudents()">Students</button> -->
+
+<div class="flex">
+  <!--  start of menu  -->
+  <section>
+    <section class="project-title">
+      <h1 contenteditable="true" [textContent]="project.name" (input)="project.name=$event.target.textContent" (blur)="editProjectName(project.name)"></h1>
+    </section>
+    <!--  status drop down  -->
+    <div class="status">
+      <select name="selectedStatus" [(ngModel)]="selectedStatus" (ngModelChange)="editProjectStatus($event)">
+        <option *ngFor="let status of statuses" value="{{status.id}}">{{status.name}}</option>
+      </select>
+    </div>
+    <!--  end of drop down menu  -->
+    <div class="back-button" (click)="goToProjects()">
+      <img src="assets/images/back-button.svg" alt="Back Button">
+    </div>
+  </section>
+  <!--  end of menu  -->
+  <!-- ***************** start of sub-components ***************** -->
+  <section class="sub-components">
+    <div class="first-section">
+      <!--  DESCRIPTION  -->
+      <div class="description">
+        <p contenteditable="true" [textContent]="project.description" (input)="project.description=$event.target.textContent" (blur)="editProjectDescription(project.description)">
+        </p>
+      </div>
+      <!--  SLIDERS -->
+      <div class="sliders">
+        <div class="priority">
+          <input type="range" min="0" max="10" [(ngModel)]="projectPriority" (blur)="editProjectPriority()">
+          <label for="priority">priority</label>
+        </div>
+        <div class="confidence">
+          <input type="range" min="0" max="10" [(ngModel)]="projectConfidence" (blur)="editProjectConfidence()">
+          <label for="confidence">confidence</label>
+        </div>
+      </div>
+      <!-- TEAM -->
+      <div class="team">
+        <div class="team-images">
+          <div class="staff">
+            <img src="{{staffMember.thumbnail}}" alt="Staff">
+          </div>
+          <div class="jpm">
+            <img src="{{projectJPM.thumbnail}}" alt="JPM">
+          </div>
+          <div class="students">
+            <ul>
+              <li *ngFor="let student of project.students">
+                <a *ngIf="student.id !== projectJPM.id"></a><img src="{{student.thumbnail}}" alt="Students">
+              </li>
+              <!--  click to add new member -->
+            </ul>
+            <div id="adding-member">
+              <div class="add-member">
+                <a href="#"></a><img src="assets/images/back-button.svg" alt="Add New Member">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  *******  ADDING MEMBER POPUP HERE ********* -->
+    </div>
+    <!--   SECOND SECTION  -->
+    <div class="second-section">
+      <!--  DEADLINE -->
+      <div id="deadline">
+        <div class="top-section">
+          <div class="days-remaining">
+            <div class="days-left">
+              <div id="number">{{projectTimeRemaining}}</div>
+              <div id="days-label"> Days</div>
+            </div>
+            <div class="date-deadline" contenteditable="true">
+              May 4
+            </div>
+          </div>
+          <div class="add-task">
+            <a href="#"></a><img src="assets/images/back-button.svg" alt="Add New Member">
+          </div>
+        </div>
+      </div>
+      <!--
+        <div class="numaric"></div>
+        <div class="check"></div> -->
+      <div class="tasks">
+        <ul>
+          <li *ngFor="let date of project.dates">
+            <div class="task-section">
+              <h2 contenteditable="true">{{date.name}}</h2>
+              <h3 contenteditable="true">{{date.formatedDate}}</h3>
+              <div class="task-description" contenteditable="true">{{date.description}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <hr>
+      <!--  TASK   -->
+      <div class="to-do">
+        <div class="checklist">
+          <ul>
+            <li *ngFor="let task of project.tasks">
+              <input type="checkbox" [checked]="task.completed_at" (change)="$event.target.checked ? editProjectTask(task.id, task.name): ''">{{task.name}}
+            </li>
+          </ul>
+        </div>
+        <div id="adding-checklist-item">
+          <div class="add-check">
+            <a href="#"></a><img src="assets/images/back-button.svg" alt="Add New Member">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  NOTES -->
+    <div class="notes">
+      <section>
+        <p contenteditable="true" [textContent]="projectNotes" (blur)="editProjectNotes()" id="notesEditor"></p>
+      </section>
+    </div>
+  </section>
+</div>

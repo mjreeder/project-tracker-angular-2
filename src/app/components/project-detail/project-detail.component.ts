@@ -6,6 +6,7 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import * as _ from 'lodash';
+
 @Component({
   selector: 'project-detail',
   templateUrl: 'project-detail.component.html',
@@ -22,10 +23,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   private staffMember: any = {};
   private assignments: any[] = [];
   private students: any[] = [];
+  private statuses: any[] = [];
   private projectTimeRemaining: any;
   private projectNotes: any;
   private projectPriority: any;
   private projectConfidence: any;
+
+  private selectedStatus: string;
 
   private dateName: string;
   private dateDescription: string;
@@ -50,12 +54,14 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     var staffPromse = this.API.getAllStaff();
     var assignmentPromise = this.API.getAllAssignments();
     var studentPromise = this.API.getAllStudents();
-    Promise.all([projectPromeis, projectJPMPromise, staffPromse, assignmentPromise, studentPromise]).then((result: any) => {
+    var statusPromise = this.API.getAllStatuses();
+    Promise.all([projectPromeis, projectJPMPromise, staffPromse, assignmentPromise, studentPromise, statusPromise]).then((result: any) => {
       this.getJPMFromID(result[0].jpm_ultimate_id, result[1]);
       this.getStaffFromId(result[0].staff_ultimate_id, result[2]);
       this.project = result[0];
       this.assignments = result[3];
       this.students = result[4];
+      this.statuses = result[5];
       this.project.students = this.getProjectStudents(this.project);
       this.project.formatedDeadline = this.helper.getFormattedDate(this.project.deadline);
       this.projectConfidence = this.project.confidence;
@@ -63,6 +69,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       this.getTimeRemaining();
       this.getMajorDeadlines();
       this.getProjectNotes();
+      this.selectedStatus = this.project.status_id;
       console.log(this.project);
     }).catch(this.handleError);
   }
@@ -129,8 +136,22 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  editProjectName(newName: string) {
+    this.API.editProjectName(newName, this.project.id);
+  }
+
+  editProjectDescription(newDescription: string) {
+    this.API.editProjectDescription(newDescription, this.project.id);
+  }
+
+  editProjectStatus(newStatusID: string) {
+    this.API.editProjectStatus(newStatusID, this.project.id);
+  }
+
   editProjectNotes() {
-    this.API.editProjectNotes(this.projectNotes, this.project.id);
+    var newProjectNotes = document.getElementById('notesEditor').innerText;
+    this.API.editProjectNotes(newProjectNotes, this.project.id);
+    this.projectNotes = newProjectNotes;
   }
 
   editProjectConfidence(){
@@ -139,6 +160,19 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   editProjectPriority(){
     this.API.editProjectPriority(this.projectPriority, this.project.id);
+  }
+
+  editProjectTask(taskID, taskName){
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var day = today.getDay() + 1;
+    var completedAt = year + '-' + month + '-' + day;
+    this.API.editProjectTask(completedAt, taskName, this.project.id);
+  }
+
+  deleteTask() {
+    this.API.deleteProjectTask
   }
 
   createNewDate() {

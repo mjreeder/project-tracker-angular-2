@@ -1,18 +1,363 @@
+// .notes {
+//   float: right;
+//   width: 27%;
+//   height: 100%;
+//   margin-right: 50px;
+// }
+//
+// .notes section {
+//   border: 0.5px solid #E6E6E6;
+//   background-color: #F6F6ED;
+//   padding: 10px;
+//   height: 100%;
+// }
+//
+// .notes section input {
+//   line-height: 2;
+//   height: 100%;
+// }
+@import "../../../styles";
+
+.first-section {
+  width: 27%;
+  float: left;
+  margin-left: 50px;
+}
+
+.description {
+  // display: flex;
+  width: 100%;
+
+  p {
+    font-weight: 400i;
+    width: 100%;
+    line-height: 1.4;
+    padding-bottom: 30px;
+    border-bottom: 2px solid $border-color;
+  }
+}
+
+.sliders {
+  .priority {
+    margin-top: 30px;
+  }
+
+  input {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  label {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+
+  .confidence {
+    padding-bottom: 20px;
+    border-bottom: 2px solid $border-color;
+  }
+}
+
+.team {
+  margin-top: 30px;
+
+  .staff img {
+    width: 40%;
+    float: left;
+    padding: 5%;
+  }
+
+  .jpm img {
+    width: 40%;
+    float: right;
+    padding: 5%;
+  }
+
+  .students li {
+    width: 20%;
+    padding: 2.5%;
+    display: inline-block;
+    // display: flex;
+    // flex-wrap: wrap;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+#adding-member {
+  background-color: $border-color;
+  width: 100%;
+  height: 70px;
+  position: relative;
+
+  .add-member {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    // display: block;
+    // margin: 0 auto;
+    // display: flex;
+    //     align-items: center;
+    img {
+      width: 40px;
+      transform: rotate(-45deg);
+      z-index: 15;
+    }
+  }
+}
+
+.project-title {
+  display: inline-block;
+}
+
+.back-button img {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.status {
+  display: inline-block;
+
+  select {
+    border: none;
+    font-family: $primary-font;
+    font-weight: $heavy;
+    font-size: 30px;
+    background: $background;
+    border: none;
+    text-transform: uppercase;
+    color: $text-color;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  value {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: $background;
+  }
+}
+//   *********** start of flexbox styling for the project details page ***********
+// .flex {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     align-items: flex-start;
+// }
+// .first-section,
+// .second-section,
+// .third-section {
+//     display: flex;
+// }
+// .description {
+//     flex: 1 0;
+// }
+// .sliders {
+//     flex: 0 0;
+//     height: 100px;
+// }
+// .team {
+// flex: 2 0;
+// }
+// .days-remaining {
+//     flex: 0 0;
+// }
+// .tasks {
+// flex: 2 1;
+// }
+// .to-do {
+//     flex: 1 1;
+// }
+// .notes {
+// flex: 1 1;
+// }
+//
+.second-section {
+  width: 27%;
+  float: left;
+  margin: 0 50px;
+}
+
+.days-remaining {
+  position: relative;
+
+  .days-left {
+    position: relative;
+
+    #number {
+      font-size: 100px;
+      display: inline-block;
+      font-weight: $heavy;
+      float: left;
+    }
+
+    #days-label {
+      height: 30px;
+      width: 50px;
+      display: inline-block;
+      transform: rotate(-90deg);
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 24px;
+      transform-origin: center;
+      position: absolute;
+      top: 43px;
+      left: 140px;
+    }
+  }
+}
+
+.date-deadline {
+  text-transform: uppercase;
+  font-size: 24px;
+  display: inline-block;
+  position: absolute;
+  top: 90px;
+  right: 5px;
+  // float: right;
+}
+
+.top-section {
+  width: 100%;
+}
+
+.days-remaining {
+  width: 60%;
+  float: left;
+}
+
+.add-task {
+  width: 40%;
+  float: right;
+
+  img {
+    width: 40px;
+    transform: rotate(-45deg);
+    margin: 50px;
+  }
+}
+
+hr {
+  clear: both;
+}
+
+.tasks {
+  clear: both;
+  margin-top: 20px;
+}
+
+.tasks ul {
+  width: 90%;
+  clear: both;
+  display: inline-block;
+  height: 300px;
+  overflow: auto;
+
+  li {
+    // padding: 15px 0px;
+    h3 {
+      float: left;
+      width: 20%;
+      font-weight: $ultra-light;
+      font-size: 18px;
+    }
+
+    .task-description,
+    h2 {
+      float: right;
+      width: 80%;
+      font-size: 12px;
+      font-weight: $ultra-light;
+    }
+
+    h2 {
+      font-weight: $medium;
+      font-size: 24px;
+    }
+
+    .task-description {
+      padding: 10px 0 25px;
+    }
+  }
+}
+
+.to-do {
+  clear: both;
+}
+// .tasks li:first-child {
+// margin-top: 50px;
+// }
+
+#deadline {
+  display: inline-block;
+}
+//  styling for checklist section  //
+.to-do {
+  width: 100%;
+
+  .checklist {
+    height: 150px;
+    overflow: auto;
+  }
+
+  li {
+    font-size: 20px;
+    padding: 10px;
+  }
+}
+
+#adding-checklist-item {
+  margin-top: 35px;
+  background-color: $border-color;
+  width: 100%;
+  height: 80px;
+  position: relative;
+
+  .add-check {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    // display: block;
+    // margin: 0 auto;
+    // display: flex;
+    //     align-items: center;
+    img {
+      width: 40px;
+      transform: rotate(-45deg);
+      z-index: 15;
+    }
+  }
+}
+//
 .notes {
   float: right;
   width: 27%;
-  height: 100%;
+  height: 700px;
   margin-right: 50px;
-}
 
-.notes section {
-  border: 0.5px solid #E6E6E6;
-  background-color: #F6F6ED;
-  padding: 10px;
-  height: 100%;
-}
+  section {
+    border: 0.5px solid $border-color;
+    background-color: $white;
+    padding: 10px;
+    height: 100%;
+    height: 400px;
+    overflow: auto;
+    height: 100%;
 
-.notes section input {
-  line-height: 2;
-  height: 100%;
+    p {
+      line-height: 2;
+      white-space: pre;
+    }
+  }
 }

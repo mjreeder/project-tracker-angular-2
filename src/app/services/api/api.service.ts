@@ -45,6 +45,11 @@ export class API {
     return this.getRequestAuth(url, jwtString);
   }
 
+  getAllStatuses() {
+    var url = 'https://apso.bsu.edu/tools/projects/api/statuses';
+    return this.getRequest(url);
+  }
+
   login(userID, password) {
     var url = 'https://apso.bsu.edu/tools/projects/api/users/initialize';
     let data = new URLSearchParams();
@@ -113,6 +118,14 @@ export class API {
       .toPromise();
   }
 
+  deleteRequestAuth(url: string, jwtString: string) {
+    var headers = this.createAuthorizationHeader(jwtString);
+    return this.http
+      .delete(url, { 'headers': headers })
+      .map(response => response.json())
+      .toPromise();
+  }
+
   postProjectTask(projectID, name) {
     var url = 'https://apso.bsu.edu/tools/projects/api/tasks';
     var jwtString = this.getJWTString();
@@ -120,6 +133,30 @@ export class API {
     data.append('name', name);
     data.append('project_id', projectID);
     return this.postRequestAuth(url, data, jwtString);
+  }
+
+  editProjectName(name, id) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id;
+    var jwtString = this.getJWTString();
+    let data = new URLSearchParams();
+    data.append('name', name);
+    return this.patchRequestAuth(url, data, jwtString);
+  }
+
+  editProjectDescription(description, id) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id;
+    var jwtString = this.getJWTString();
+    let data = new URLSearchParams();
+    data.append('description', description);
+    return this.patchRequestAuth(url, data, jwtString);
+  }
+
+  editProjectStatus(statusID, id) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/projects/' + id;
+    var jwtString = this.getJWTString();
+    let data = new URLSearchParams();
+    data.append('status_id', statusID);
+    return this.patchRequestAuth(url, data, jwtString);
   }
 
   editProjectNotes(note, id) {
@@ -144,6 +181,21 @@ export class API {
     let data = new URLSearchParams();
     data.append('rating', rating);
     return this.patchRequestAuth(url, data, jwtString);
+  }
+
+  editProjectTask(completedAt, name, id) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/tasks/' + id;
+    var jwtString = this.getJWTString();
+    let data = new URLSearchParams();
+    data.append('name', name);
+    data.append('completed_at', completedAt);
+    return this.patchRequestAuth(url, data, jwtString);
+  }
+
+  deleteProjectTask(id) {
+    var url = 'https://apso.bsu.edu/tools/projects/api/tasks/' + id;
+    var jwtString = this.getJWTString();
+    return this.deleteRequestAuth(url, jwtString);
   }
 
   createAuthorizationHeader(jwtString: string): Headers {
